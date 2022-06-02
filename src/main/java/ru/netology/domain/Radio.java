@@ -1,50 +1,24 @@
 package ru.netology.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@Data
 public class Radio {
   private int radioStation;
   private int countStations;
   private int minStation;
   private int maxStation;
   private int minVolume;
-  private int maxVolume = 100;
+  private int maxVolume;
   private int currentVolume;
   
-  public Radio() {
+  public Radio(){
     countStations = 10;
-    maxStation = countStations - 1;
+    maxStation=9;
   }
-  
-  /**
-   * Конструктор класса с инициализацией параметра.
-   */
-  public Radio(int countStations) {
-    if (countStations <= 0) {
-      maxStation = 0;
-    } else {
-      this.countStations = countStations;
-      maxStation = countStations - 1;
-    }
-  }
-  
-  /**
-   * Сеттер для класса Radio.
-   */
-  public void setRadioStation(int radioStation) {
-    if (radioStation > maxStation) {
-      return;
-    } else if (radioStation < minStation) {
-      return;
-    }
-    this.radioStation = radioStation;
-  }
-  
-  /**
-   * Геттер для класса Radio.
-   */
-  public int getRadioStation() {
-    return radioStation;
-  }
-  
   /**
    * Переключение на следующую станцию.
    */
@@ -65,30 +39,5 @@ public class Radio {
     } else {
       setRadioStation(radioStation - 1);
     }
-  }
-  
-  /**
-   * Увеличение громкости звука.
-   */
-  public void increaseVolume() {
-    if (currentVolume < maxVolume) {
-      currentVolume = currentVolume + 1;
-    }
-  }
-  
-  /**
-   * Уменьшение громкости звука.
-   */
-  public void decreaseVolume() {
-    if (currentVolume > minVolume) {
-      currentVolume = currentVolume - 1;
-    }
-  }
-  
-  /**
-   * текущий уровень звука.
-   */
-  public int getVolume() {
-    return currentVolume;
   }
 }

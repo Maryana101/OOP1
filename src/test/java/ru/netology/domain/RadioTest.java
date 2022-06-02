@@ -3,68 +3,65 @@ package ru.netology.domain;
 import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
 
+
 public class RadioTest {
-    int defaultCountRadioStations=10;
-    int defaultMaxRadioStation = defaultCountRadioStations-1;
-    Radio defaultRadio=new Radio();
-    
-    int oneRadioStation=0;
-    Radio oneRadio=new Radio(oneRadioStation);
-    int countRadioStations=25;
-    int maxRadioStation=countRadioStations-1;
-    Radio radio=new Radio(countRadioStations);
-    
-    int minRadioStation = 0;
-    int maxVolume = 100;
-    int minVolume = 0;
-    
-    @Test
-    public void setOneRadioStation() {
-        int expected = oneRadioStation;
-        int actual = oneRadio.getRadioStation();
-        Assert.assertEquals(expected, actual);
-    }
-    @Test
-    public void moreThanMaxDefaultRadioStation() {
-        int expected = minRadioStation;
-        int actual = oneRadio.getRadioStation();
-        Assert.assertEquals(expected, actual);
-    }
-    
-    @Test
-    public void maxDefaultRadioStation() {
-        int currentStation = defaultMaxRadioStation;
-        defaultRadio.setRadioStation(currentStation);
-        int expected = defaultMaxRadioStation;
-        int actual = defaultRadio.getRadioStation();
-        Assert.assertEquals(expected, actual);
-    }
-    
-    @Test
-    public void lessThanMinDefaultRadioStation() {
-        int currentStation = minRadioStation-1;
-        defaultRadio.setRadioStation(currentStation);
-        int expected = minRadioStation;
-        int actual = defaultRadio.getRadioStation();
-        Assert.assertEquals(expected, actual);
-    }
-    
-    @Test
-    public void minDefaultRadioStation() {
-        int currentStation = minRadioStation;
-        defaultRadio.setRadioStation(currentStation);
-        int expected = minRadioStation;
-        int actual = defaultRadio.getRadioStation();
-        Assert.assertEquals(expected, actual);
-    }
+  Radio radio = new Radio();
+  Radio radio_all = new Radio(0, 10, 0, 9, 0, 100, 0);
+  
+  @Test
+  public void getDefaultRadioCount() {
+    int actual = radio.getCountStations();
+    int expected = 10;
+    Assert.assertEquals(expected, actual);
+  }
+  
+  @Test
+  public void getRadioStation() {
+    radio_all.setRadioStation(5);
+    int expected = 5;
+    int actual = radio_all.getRadioStation();
+    Assert.assertEquals(expected, actual);
+  }
+  
+  @Test
+  public void getMinDefaultStation() {
+    int expected = 0;
+    int actual = radio.getMinStation();
+    Assert.assertEquals(expected, actual);
+  }
+  
+  @Test
+  public void getMinRadioStation() {
+    int expected = 0;
+    int actual = radio_all.getMinStation();
+    Assert.assertEquals(expected, actual);
+  }
+  
+  @Test
+  public void getMaxStation() {
+    int expected = 9;
+    int actual = radio.getMaxStation();
+    Assert.assertEquals(expected, actual);
+  }
+  @Test
+  public void lessThanMinDefaultRadioStation() {
+    int currentStation = radio.getMinStation() - 1;
+    radio.setRadioStation(currentStation);
+    int expected = 0;
+    int actual = radio.getRadioStation();
+    Assert.assertEquals(expected, actual);
+  }
+
     @Test
     public void moreThanMaxRadioStation() {
-        int currentStation = maxRadioStation + 1;
-        radio.setRadioStation(currentStation);
-        int expected = minRadioStation;
+      int new_station=radio.getMaxStation();
+        radio.setRadioStation(new_station);
+        radio.nextRadioStation();
+        int expected = radio.getMinStation();
         int actual = radio.getRadioStation();
         Assert.assertEquals(expected, actual);
     }
+    /*
     @Test
     public void maxRadioStation() {
         int currentStation = maxRadioStation;
@@ -199,6 +196,6 @@ public class RadioTest {
         int actual = radio.getVolume();
         int expected = minVolume;
         Assert.assertEquals(expected, actual);
-    }
-
+    } */
+  
 }
