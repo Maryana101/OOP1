@@ -7,10 +7,18 @@ public class RadioTest {
   Radio radio = new Radio();
   Radio radio_all = new Radio(0, 25, 0, 24, 0, 100, 0);
   
+
   @Test
   public void getDefaultRadioCount() {
     int actual = radio.getCountStations();
     int expected = 10;
+    Assert.assertEquals(expected, actual);
+  }
+  
+  @Test
+  public void getMaxRadioStation() {
+    int actual = radio.getMaxStation();
+    int expected = 9;
     Assert.assertEquals(expected, actual);
   }
   
