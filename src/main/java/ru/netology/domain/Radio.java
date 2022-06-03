@@ -4,33 +4,26 @@ public class Radio {
   private int radioStation;
   private int countStations;
   private int minStation;
-  private int maxStation;
   private int minVolume;
   private int maxVolume = 100;
   private int currentVolume;
   
   public Radio() {
     countStations = 10;
-    maxStation = countStations - 1;
   }
   
   /**
-   * Конструктор класса с инициализацией параметра.
+   * Конструктор класса.
    */
   public Radio(int countStations) {
-    if (countStations <= 0) {
-      maxStation = 0;
-    } else {
-      this.countStations = countStations;
-      maxStation = countStations - 1;
-    }
+    this.countStations = countStations;
   }
   
   /**
    * Сеттер для класса Radio.
    */
   public void setRadioStation(int radioStation) {
-    if (radioStation > maxStation) {
+    if (radioStation > getMaxStation()) {
       return;
     } else if (radioStation < minStation) {
       return;
@@ -45,11 +38,15 @@ public class Radio {
     return radioStation;
   }
   
+  public int getMaxStation() {
+    return countStations - 1;
+  }
+  
   /**
    * Переключение на следующую станцию.
    */
   public void nextRadioStation() {
-    if (radioStation >= maxStation) {
+    if (radioStation >= getMaxStation()) {
       setRadioStation(minStation);
     } else {
       setRadioStation(radioStation + 1);
@@ -61,7 +58,7 @@ public class Radio {
    */
   public void prevRadioStation() {
     if (radioStation <= minStation) {
-      setRadioStation(maxStation);
+      setRadioStation(getMaxStation());
     } else {
       setRadioStation(radioStation - 1);
     }
