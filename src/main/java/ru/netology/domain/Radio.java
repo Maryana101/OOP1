@@ -17,13 +17,23 @@ public class Radio {
   
   public Radio(){
     countStations = 10;
-    maxStation=9;
+  }
+  public int getMinVolume() {
+    return 0;
+  }
+  
+  public int getMaxVolume() {
+    return 100;
   }
   /**
    * Переключение на следующую станцию.
    */
+  public int getMaxStation() {
+    maxStation = countStations-1;
+    return maxStation ;
+  }
   public void nextRadioStation() {
-    if (radioStation >= maxStation) {
+     if (radioStation >= getMaxStation()) {
       setRadioStation(minStation);
     } else {
       setRadioStation(radioStation + 1);
@@ -35,9 +45,24 @@ public class Radio {
    */
   public void prevRadioStation() {
     if (radioStation <= minStation) {
-      setRadioStation(maxStation);
+      setRadioStation(getMaxStation());
     } else {
       setRadioStation(radioStation - 1);
     }
+  }
+  
+  public void increaseVolume() {
+    if (currentVolume < 100) {
+      currentVolume = currentVolume + 1;
+    } else {return;}
+  }
+  
+  /**
+   * Уменьшение громкости звука.
+   */
+  public void decreaseVolume() {
+    if (currentVolume > 0) {
+      currentVolume = currentVolume - 1;
+    } else {return;}
   }
 }

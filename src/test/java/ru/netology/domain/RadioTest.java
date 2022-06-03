@@ -3,10 +3,9 @@ package ru.netology.domain;
 import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
 
-
 public class RadioTest {
   Radio radio = new Radio();
-  Radio radio_all = new Radio(0, 10, 0, 9, 0, 100, 0);
+  Radio radio_all = new Radio(0, 25, 0, 24, 0, 100, 0);
   
   @Test
   public void getDefaultRadioCount() {
@@ -31,7 +30,7 @@ public class RadioTest {
   }
   
   @Test
-  public void getMinRadioStation() {
+  public void getMinStation() {
     int expected = 0;
     int actual = radio_all.getMinStation();
     Assert.assertEquals(expected, actual);
@@ -43,24 +42,64 @@ public class RadioTest {
     int actual = radio.getMaxStation();
     Assert.assertEquals(expected, actual);
   }
+  
   @Test
-  public void lessThanMinDefaultRadioStation() {
-    int currentStation = radio.getMinStation() - 1;
-    radio.setRadioStation(currentStation);
-    int expected = 0;
+  public void prevMinRadioStation() {
+    radio.setRadioStation(0);
+    radio.prevRadioStation();
+    int expected = radio.getMaxStation();
     int actual = radio.getRadioStation();
     Assert.assertEquals(expected, actual);
   }
-
-    @Test
-    public void moreThanMaxRadioStation() {
-      int new_station=radio.getMaxStation();
-        radio.setRadioStation(new_station);
-        radio.nextRadioStation();
-        int expected = radio.getMinStation();
-        int actual = radio.getRadioStation();
-        Assert.assertEquals(expected, actual);
+  
+  @Test
+  public void prevRadioStation() {
+    radio.setRadioStation(9);
+    radio.prevRadioStation();
+    int expected = 8;
+    int actual = radio.getRadioStation();
+    Assert.assertEquals(expected, actual);
+  }
+  @Test
+  public void nextMaxRadioStation() {
+    radio.setRadioStation(9);
+    radio.nextRadioStation();
+    int expected = radio.getMinStation();
+    int actual = radio.getRadioStation();
+    Assert.assertEquals(expected, actual);
+  }
+  @Test
+  public void nextRadioStation() {
+    radio.setRadioStation(7);
+    radio.nextRadioStation();
+    int expected = 8;
+    int actual = radio.getRadioStation();
+    Assert.assertEquals(expected, actual);
+  }
+  
+  
+  @Test
+  public void maxVolumeRadioStation() {
+    for (int i = 0; i <= 110 + 1; i++) {
+      radio.increaseVolume();
     }
+    int actual = radio.getCurrentVolume();
+    int expected = radio.getMaxVolume();
+    Assert.assertEquals(expected, actual);
+  }
+  @Test
+  public void minVolumeRadioStation() {
+    for (int i = 0; i <= 110 + 1; i++) {
+      radio.increaseVolume();
+    }
+    for (int i = 100; i >= 0; i--) {
+      radio.decreaseVolume();
+    }
+    int actual = radio.getCurrentVolume();
+    int expected = radio.getMinVolume();
+    Assert.assertEquals(expected, actual);
+  }
+
     /*
     @Test
     public void maxRadioStation() {
@@ -97,14 +136,7 @@ public class RadioTest {
         Assert.assertEquals(expected, actual);
     }
     
-    @Test
-    public void nextAfterMaxRadioStation() {
-        radio.setRadioStation(maxRadioStation);
-        radio.nextRadioStation();
-        int expected = minRadioStation;
-        int actual = radio.getRadioStation();
-        Assert.assertEquals(expected, actual);
-    }
+
     @Test
     public void nextBeforeMaxRadioStation() {
         int currentStation = maxRadioStation - 1;
@@ -176,26 +208,6 @@ public class RadioTest {
         int actual = defaultRadio.getRadioStation();
         Assert.assertEquals(expected, actual);
     }
-    @Test
-    public void maxVolumeRadioStation() {
-        for (int i = minVolume; i <= maxVolume + 1; i++) {
-            radio.increaseVolume();
-        }
-        int actual = radio.getVolume();
-        int expected = maxVolume;
-        Assert.assertEquals(expected, actual);
-    }
-    @Test
-    public void minVolumeRadioStation() {
-        for (int i = minVolume; i <= maxVolume; i++) {
-            radio.increaseVolume();
-        }
-        for (int i = maxVolume; i >= minVolume - 1; i--) {
-            radio.decreaseVolume();
-        }
-        int actual = radio.getVolume();
-        int expected = minVolume;
-        Assert.assertEquals(expected, actual);
-    } */
+   */
   
 }
