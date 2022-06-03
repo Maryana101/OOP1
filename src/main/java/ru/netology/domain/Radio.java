@@ -2,14 +2,66 @@ package ru.netology.domain;
 
 public class Radio {
   private int radioStation;
-  private int minStation = 0;
-  private int maxStation = 9;
+  private int countStations;
+  private int minStation;
+  private int minVolume;
+  private int maxVolume = 100;
   private int currentVolume;
-  private int minVolume = 0;
-  private int maxVolume = 10;
   
-  public int getVolume() {
-    return currentVolume;
+  public Radio() {
+    countStations = 10;
+  }
+  
+  /**
+   * Конструктор класса.
+   */
+  public Radio(int countStations) {
+    this.countStations = countStations;
+  }
+  
+  /**
+   * Сеттер для класса Radio.
+   */
+  public void setRadioStation(int radioStation) {
+    if (radioStation > getMaxStation()) {
+      return;
+    } else if (radioStation < minStation) {
+      return;
+    }
+    this.radioStation = radioStation;
+  }
+  
+  /**
+   * Геттер для класса Radio.
+   */
+  public int getRadioStation() {
+    return radioStation;
+  }
+  
+  public int getMaxStation() {
+    return countStations - 1;
+  }
+  
+  /**
+   * Переключение на следующую станцию.
+   */
+  public void nextRadioStation() {
+    if (radioStation >= getMaxStation()) {
+      setRadioStation(minStation);
+    } else {
+      setRadioStation(radioStation + 1);
+    }
+  }
+  
+  /**
+   * Предыдущая станция.
+   */
+  public void prevRadioStation() {
+    if (radioStation <= minStation) {
+      setRadioStation(getMaxStation());
+    } else {
+      setRadioStation(radioStation - 1);
+    }
   }
   
   /**
@@ -31,47 +83,9 @@ public class Radio {
   }
   
   /**
-   * Сеттер для класса RadioStation.
+   * текущий уровень звука.
    */
-  public void setRadioStation(int radioStation) {
-    if (radioStation > maxStation) {
-      return;
-    }
-    if (radioStation < minStation) {
-      return;
-    }
-    this.radioStation = radioStation;
+  public int getVolume() {
+    return currentVolume;
   }
-  
-  /**
-   * Геттер для класса RadioStation.
-   */
-  public int getRadioStation() {
-    return radioStation;
-  }
-  
-  /**
-   * Следующая станция.
-   */
-  public void nextRadioStation() {
-    int currentRadioStation = getRadioStation();
-    if (currentRadioStation == maxStation) {
-      setRadioStation(minStation);
-    } else {
-      setRadioStation(currentRadioStation + 1);
-    }
-  }
-  
-  /**
-   * Предыдущая станция.
-   */
-  public void prevRadioStation() {
-    int currentRadioStation = getRadioStation();
-    if (currentRadioStation == minStation) {
-      setRadioStation(maxStation);
-    } else {
-      setRadioStation(currentRadioStation - 1);
-    }
-  }
-
 }
